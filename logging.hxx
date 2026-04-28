@@ -24,7 +24,7 @@
 
 #define STRINGIZE(X) DO_STRINGIZE(X)
 #define DO_STRINGIZE(X) #X
-#define ORIGIN __FILE__":"STRINGIZE(__LINE__)": "
+#define ORIGIN __FILE__ ":" STRINGIZE(__LINE__)": "
 
 
 

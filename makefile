@@ -2,8 +2,8 @@ PREFIX ?= /usr/local
 MANDIR ?= $(PREFIX)/share/man
 INSTALL ?= install
 
-CXXFLAGS ?= -mtune=native -pipe -O3
-CFLAGS ?= -mtune=native -pipe -O3
+CXXFLAGS ?= -mtune=native -pipe -O3 -std=c++17
+CFLAGS ?= -mtune=native -pipe -O3 -std=c17
 LDFLAGS ?= -g
 
 CXXFLAGS += -Wall
@@ -54,7 +54,7 @@ logging.o: logging.cxx logging.hxx makefile
 	g++ $(CXXFLAGS) -c logging.cxx
 
 options.o: options.c options.h makefile
-	g++ $(CFLAGS) -c options.c
+	gcc $(CFLAGS) -c options.c
 
 static: logging.o options.o hid.o bu0836.o main.o makefile
 	g++ -m32 $(LDFLAGS) -o bu0836-static32 logging.o options.o bu0836.o hid.o main.o /usr/lib/libusb-1.0.a -lrt -pthread -lm

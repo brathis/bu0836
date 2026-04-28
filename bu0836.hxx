@@ -180,8 +180,6 @@ public:
 private:
 	std::vector<controller *> _devices;
 	controller *_selected;
-
-	static const int _CONTEXT = 0;
 };
 
 } // namespace bu0836

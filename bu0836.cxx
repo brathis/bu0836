@@ -54,9 +54,9 @@ void interrupt_handler(int)
 
 
 
-const char *usb_strerror(int errno)
+const char *usb_strerror(int libusb_error)
 {
-	switch (errno) {
+	switch (libusb_error) {
 	case LIBUSB_SUCCESS:
 		return "success";
 	case LIBUSB_ERROR_IO:
@@ -456,13 +456,13 @@ int controller::get_encoder_mode(int b) const
 
 manager::manager(int debug_level)
 {
-	int ret = libusb_init(_CONTEXT);
+	int ret = libusb_init(nullptr);
 	if (ret < 0)
 		throw string("libusb_init: ") + usb_strerror(ret);
-	libusb_set_debug(_CONTEXT, debug_level);
+	libusb_set_debug(nullptr, debug_level);
 
 	libusb_device **list;
-	int num = libusb_get_device_list(_CONTEXT, &list);
+	int num = libusb_get_device_list(nullptr, &list);
 	if (num < 0)
 		throw string("libusb_get_device_list: ") + usb_strerror(ret);
 
@@ -539,7 +539,7 @@ manager::~manager()
 	vector<controller *>::const_iterator it, end = _devices.end();
 	for (it = _devices.begin(); it != end; ++it)
 		delete *it;
-	libusb_exit(_CONTEXT);
+	libusb_exit(nullptr);
 }
 
 
